@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-deployment
+spec:
+  replicas: 3  # ou le nombre souhaité de répliques
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - name: server-container
+        image: fadel2001/server:latest
+        ports:
+        - containerPort: 8080

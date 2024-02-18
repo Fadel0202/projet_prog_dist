@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-student-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-students
+  template:
+    metadata:
+      labels:
+        app: postgres-students
+    spec:
+      containers:
+        - name: postgres-students
+          image: fadel2001/postgres_students:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "fadel"
+            - name: POSTGRES_PASSWORD
+              value: "Samb2001"
+            - name: POSTGRES_DB
+              value: "students"
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc

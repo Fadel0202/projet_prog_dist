@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    image: fadel2001/server
+    ports:
+      - "4000:8080"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://fadel:Samb2001@db:5432/students
+
+  db:
+    image: fadel2001/postgres_students
+    environment:
+      POSTGRES_USER: fadel
+      POSTGRES_PASSWORD: Samb2001
+      POSTGRES_DB: students
